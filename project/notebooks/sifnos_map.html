@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_684880c7f74a9036a63bbb172012f45a {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>#map {
+                position:absolute;
+                top:0;
+                bottom:0;
+                right:0;
+                left:0;
+                }
+            </style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
+        
+    <script src="https://cdn.jsdelivr.net/npm/leaflet.fullscreen@3.0.0/Control.FullScreen.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet.fullscreen@3.0.0/Control.FullScreen.css"/>
+    <script src="https://cdn.jsdelivr.net/npm/proj4@2.8.1/dist/proj4.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/georaster@1.6.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/georaster-layer-for-leaflet@4.1.2/dist/georaster-layer-for-leaflet.min.js"></script>
+</head>
+<body>
+    
+    
+            <div class="folium-map" id="map_684880c7f74a9036a63bbb172012f45a" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_684880c7f74a9036a63bbb172012f45a = L.map(
+                "map_684880c7f74a9036a63bbb172012f45a",
+                {
+                    center: [20.0, 0.0],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 2,
+  "zoomControl": true,
+  "preferCanvas": false,
+  "drawExport": false,
+  "layersControl": true,
+}
+
+                }
+            );
+            L.control.scale().addTo(map_684880c7f74a9036a63bbb172012f45a);
+
+            
+
+        
+    
+            var tile_layer_2e5a1a5d126fa8a379492941176f282e = L.tileLayer(
+                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 24,
+  "maxNativeZoom": 24,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_2e5a1a5d126fa8a379492941176f282e.addTo(map_684880c7f74a9036a63bbb172012f45a);
+        
+    
+            L.control.fullscreen(
+                {
+  "position": "topleft",
+  "title": "Full Screen",
+  "titleCancel": "Exit Full Screen",
+  "forceSeparateButton": false,
+}
+            ).addTo(map_684880c7f74a9036a63bbb172012f45a);
+        
+    
+            map_684880c7f74a9036a63bbb172012f45a.fitBounds(
+                [[20, 0], [20, 0]],
+                {"maxZoom": 2}
+            );
+        
+    
+            var macro_element_05a4c45fca365959d63fe389f48e7471 = L.layerGroup();
+            
+            (function() {
+                var layerName = "Sifnos Sentinel-2";
+                if (true) {
+                    macro_element_05a4c45fca365959d63fe389f48e7471._layerControlName = layerName;
+                    map_684880c7f74a9036a63bbb172012f45a.layerControlEntries = map_684880c7f74a9036a63bbb172012f45a.layerControlEntries || [];
+                    map_684880c7f74a9036a63bbb172012f45a.layerControlEntries.push({ layer: macro_element_05a4c45fca365959d63fe389f48e7471, name: layerName });
+                }
+            })();
+            
+            (async function() {
+                const waitForGeoRaster = (maxAttempts = 60, delay = 200) =>
+                    new Promise((resolve, reject) => {
+                        let attempts = 0;
+                        const check = () => {
+                            if (window.parseGeoraster && window.GeoRasterLayer) {
+                                resolve();
+                            } else if (attempts >= maxAttempts) {
+                                reject(new Error("GeoRaster libraries failed to load"));
+                            } else {
+                                attempts += 1;
+                                setTimeout(check, delay);
+                            }
+                        };
+                        check();
+                    });
+
+                try {
+                    await waitForGeoRaster();
+                    const mapRef = map_684880c7f74a9036a63bbb172012f45a;
+                    const layerSequence = 1;
+
+                    // Create a custom pane for this GeoTIFF layer with explicit z-index
+                    const paneName = 'geotiff-pane-' + layerSequence;
+                    if (!mapRef.getPane(paneName)) {
+                        const pane = mapRef.createPane(paneName);
+                        // Set z-index: 400 is default for overlays (vectors), use 300-399 range
+                        // for GeoTIFF layers so they appear below vector layers
+                        pane.style.zIndex = 300 + layerSequence;
+                    }
+
+                    const indexes = null;
+                    const georaster = await window.parseGeoraster("https://sentinel2l2a01.blob.core.windows.net/sentinel2-l2/35/S/KB/2026/09/28/S2A_MSIL2A_20260928T091331_N0513_R050_T35SKB_20260928T142309.SAFE/GRANULE/L2A_T35SKB_A058849_20260928T091325/IMG_DATA/R10m/T35SKB_20260928T091331_TCI_10m.tif?st=2026-10-03T13%3A20%3A58Z\u0026se=2026-10-04T14%3A05%3A58Z\u0026sp=rl\u0026sv=2025-07-05\u0026sr=c\u0026skoid=9c8ff44a-6a2c-4dfb-b298-1c9212f64d9a\u0026sktid=72f988bf-86f1-41af-91ab-2d7cd011db47\u0026skt=2026-10-04T13%3A20%3A02Z\u0026ske=2026-10-11T13%3A20%3A02Z\u0026sks=b\u0026skv=2025-07-05\u0026sig=8W/CO8sU2LoOs7LMMmENV3uJCBv4idwV1knjsiVpU0Y%3D");
+                    const palette = [];
+                    const hasPalette = Array.isArray(palette) && palette.length > 0;
+                    const nodataColor = null;
+                    const suppliedRange = null;
+                    const layerOptions = {"attribution": ".", "name": "Sifnos Sentinel-2", "opacity": 1.0, "resolution": 128, "zIndex": 501};
+                    layerOptions.georaster = georaster;
+                    layerOptions.pane = paneName;
+
+                    // Handle custom band selection for multi-band display
+                    const hasCustomIndexes = Array.isArray(indexes) && indexes.length > 0;
+                    if (hasCustomIndexes && !hasPalette) {
+                        const bandIndices = indexes.map(i => i - 1); // Convert to 0-indexed
+                        if (bandIndices.length === 3 || bandIndices.length === 4) {
+                            // RGB or RGBA display with custom band selection
+                            // Determine min/max for normalization
+                            let vmin = Array.isArray(suppliedRange) ? suppliedRange[0] : null;
+                            let vmax = Array.isArray(suppliedRange) ? suppliedRange[1] : null;
+                            let useSuppliedRange = vmin !== null && vmax !== null && Number.isFinite(vmin) && Number.isFinite(vmax) && vmin !== vmax;
+
+                            layerOptions.pixelValuesToColorFn = function(values) {
+                                if (!Array.isArray(values)) return null;
+                                // Extract selected bands
+                                const r = values[bandIndices[0]];
+                                const g = values[bandIndices[1]];
+                                const b = values[bandIndices[2]];
+                                // Check for nodata
+                                if (r === null || r === undefined || Number.isNaN(r) ||
+                                    g === null || g === undefined || Number.isNaN(g) ||
+                                    b === null || b === undefined || Number.isNaN(b)) {
+                                    return nodataColor || null;
+                                }
+                                // Normalize values to 0-255 range
+                                let minR, maxR, minG, maxG, minB, maxB;
+                                if (useSuppliedRange) {
+                                    minR = minG = minB = vmin;
+                                    maxR = maxG = maxB = vmax;
+                                } else {
+                                    minR = georaster.mins && georaster.mins[bandIndices[0]] ? georaster.mins[bandIndices[0]] : 0;
+                                    maxR = georaster.maxs && georaster.maxs[bandIndices[0]] ? georaster.maxs[bandIndices[0]] : 255;
+                                    minG = georaster.mins && georaster.mins[bandIndices[1]] ? georaster.mins[bandIndices[1]] : 0;
+                                    maxG = georaster.maxs && georaster.maxs[bandIndices[1]] ? georaster.maxs[bandIndices[1]] : 255;
+                                    minB = georaster.mins && georaster.mins[bandIndices[2]] ? georaster.mins[bandIndices[2]] : 0;
+                                    maxB = georaster.maxs && georaster.maxs[bandIndices[2]] ? georaster.maxs[bandIndices[2]] : 255;
+                                }
+                                const nr = Math.round(Math.max(0, Math.min(255, ((r - minR) / (maxR - minR)) * 255)));
+                                const ng = Math.round(Math.max(0, Math.min(255, ((g - minG) / (maxG - minG)) * 255)));
+                                const nb = Math.round(Math.max(0, Math.min(255, ((b - minB) / (maxB - minB)) * 255)));
+                                if (bandIndices.length === 4) {
+                                    const a = values[bandIndices[3]];
+                                    if (a === null || a === undefined || Number.isNaN(a)) return nodataColor || null;
+                                    let minA, maxA;
+                                    if (useSuppliedRange) {
+                                        minA = vmin;
+                                        maxA = vmax;
+                                    } else {
+                                        minA = georaster.mins && georaster.mins[bandIndices[3]] ? georaster.mins[bandIndices[3]] : 0;
+                                        maxA = georaster.maxs && georaster.maxs[bandIndices[3]] ? georaster.maxs[bandIndices[3]] : 255;
+                                    }
+                                    const na = (a - minA) / (maxA - minA);
+                                    return `rgba(${nr},${ng},${nb},${na})`;
+                                }
+                                return `rgb(${nr},${ng},${nb})`;
+                            };
+                        } else if (bandIndices.length === 1) {
+                            // Single band with custom index (grayscale)
+                            // Determine min/max for normalization
+                            let vmin = Array.isArray(suppliedRange) ? suppliedRange[0] : null;
+                            let vmax = Array.isArray(suppliedRange) ? suppliedRange[1] : null;
+                            if (vmin === null || vmax === null || !Number.isFinite(vmin) || !Number.isFinite(vmax) || vmin === vmax) {
+                                vmin = georaster.mins && georaster.mins[bandIndices[0]] ? georaster.mins[bandIndices[0]] : 0;
+                                vmax = georaster.maxs && georaster.maxs[bandIndices[0]] ? georaster.maxs[bandIndices[0]] : 255;
+                            }
+
+                            layerOptions.pixelValuesToColorFn = function(values) {
+                                if (!Array.isArray(values)) return null;
+                                const val = values[bandIndices[0]];
+                                if (val === null || val === undefined || Number.isNaN(val)) {
+                                    return nodataColor || null;
+                                }
+                                const normalized = Math.round(Math.max(0, Math.min(255, ((val - vmin) / (vmax - vmin)) * 255)));
+                                return `rgb(${normalized},${normalized},${normalized})`;
+                            };
+                        }
+                    } else if (hasPalette && georaster.numberOfRasters === 1) {
+                        let vmin = Array.isArray(suppliedRange) ? suppliedRange[0] : null;
+                        let vmax = Array.isArray(suppliedRange) ? suppliedRange[1] : null;
+                        if (
+                            vmin === null ||
+                            vmax === null ||
+                            !Number.isFinite(vmin) ||
+                            !Number.isFinite(vmax) ||
+                            vmin === vmax
+                        ) {
+                            if (Array.isArray(georaster.mins) && georaster.mins.length) {
+                                vmin = georaster.mins[0];
+                            }
+                            if (Array.isArray(georaster.maxs) && georaster.maxs.length) {
+                                vmax = georaster.maxs[0];
+                            }
+                        }
+                        if (!Number.isFinite(vmin)) {
+                            vmin = 0;
+                        }
+                        if (!Number.isFinite(vmax) || vmax === vmin) {
+                            vmax = vmin + palette.length;
+                        }
+                        const span = vmax - vmin || palette.length || 1;
+                        const lastIndex = palette.length - 1;
+                        const nullColor = nodataColor || null;
+                        layerOptions.pixelValuesToColorFn = function(values) {
+                            const val = Array.isArray(values) ? values[0] : values;
+                            if (val === null || val === undefined || Number.isNaN(val)) {
+                                return nullColor;
+                            }
+                            const ratio = (val - vmin) / span;
+                            const idx = Math.max(0, Math.min(lastIndex, Math.round(ratio * lastIndex)));
+                            return palette[idx];
+                        };
+                    }
+                    var geotiffLayer = new window.GeoRasterLayer(layerOptions);
+                    geotiffLayer.options.name = "Sifnos Sentinel-2";
+                    
+                    if (geotiffLayer.getAttribution) {
+                        geotiffLayer.getAttribution = function() { return "."; };
+                    } else {
+                        geotiffLayer.options.attribution = ".";
+                    }
+                    
+
+                    macro_element_05a4c45fca365959d63fe389f48e7471.clearLayers();
+                    macro_element_05a4c45fca365959d63fe389f48e7471.addLayer(geotiffLayer);
+                    macro_element_05a4c45fca365959d63fe389f48e7471._georasterLayer = geotiffLayer;
+
+                    if (!true) {
+                        mapRef.addLayer(macro_element_05a4c45fca365959d63fe389f48e7471);
+                    } else if (mapRef.hasLayer(macro_element_05a4c45fca365959d63fe389f48e7471) || true) {
+                        mapRef.addLayer(macro_element_05a4c45fca365959d63fe389f48e7471);
+                    }
+                    
+                    mapRef.fitBounds(geotiffLayer.getBounds());
+                    
+                } catch (error) {
+                    console.error("leafmap: failed to load GeoTIFF layer", error);
+                }
+            })();
+            
+    
+            macro_element_05a4c45fca365959d63fe389f48e7471.addTo(map_684880c7f74a9036a63bbb172012f45a);
+        
+    
+            map_684880c7f74a9036a63bbb172012f45a.fitBounds(
+                [[36.93, 24.6], [37.05, 24.76]],
+                {}
+            );
+        
+    
+            var layer_control_26a48ad25b183ff180a3569a3009e81b_layers = {
+                base_layers : {
+                    "openstreetmap" : tile_layer_2e5a1a5d126fa8a379492941176f282e,
+                },
+                overlays :  {
+                    "Sifnos Sentinel-2" : macro_element_05a4c45fca365959d63fe389f48e7471,
+                },
+            };
+            let layer_control_26a48ad25b183ff180a3569a3009e81b = L.control.layers(
+                layer_control_26a48ad25b183ff180a3569a3009e81b_layers.base_layers,
+                layer_control_26a48ad25b183ff180a3569a3009e81b_layers.overlays,
+                {
+  "position": "topright",
+  "collapsed": true,
+  "autoZIndex": true,
+}
+            ).addTo(map_684880c7f74a9036a63bbb172012f45a);
+
+        
+    
+            tile_layer_2e5a1a5d126fa8a379492941176f282e.addTo(map_684880c7f74a9036a63bbb172012f45a);
+        
+    
+            macro_element_05a4c45fca365959d63fe389f48e7471.addTo(map_684880c7f74a9036a63bbb172012f45a);
+        
+</script>
+</html>
