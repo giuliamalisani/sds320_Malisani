@@ -1,4 +1,4 @@
-# Raw and processed data (too large / not reproducible to commit)
+#Raw and processed data (too large / not reproducible to commit)
 data/raw/*
 data/processed/*
 data/training/*
@@ -6,19 +6,22 @@ data/training/*
 !data/processed/.gitkeep
 !data/training/.gitkeep
 
-# Outputs (regenerate from code, don't commit)
+models/
+
+#Outputs (regenerate from code, don't commit)
 results/figures/*
 results/maps/*
 results/predictions/*
 results/evaluation/*
 !results/**/.gitkeep
 
-# Jupyter checkpoints
+
+#Jupyter checkpoints
 .ipynb_checkpoints/
 
-# Python cache
+#Python cache
 __pycache__/
 *.pyc
 
-# OS/editor cruft
+#OS/editor cruft
 .DS_Store
